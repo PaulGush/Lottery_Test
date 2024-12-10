@@ -1,4 +1,8 @@
+using System;
+using System.Collections.Generic;
+using NUnit.Framework;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Code
 {
@@ -10,6 +14,11 @@ namespace Code
         [SerializeField] private float m_innerSpinSpeed = 5f;
         [SerializeField] private float m_outerSpinSpeed = 5f;
         [SerializeField] private float m_fastSpinSpeedFactor = 5f;
+        [SerializeField] private Outcome m_currentOutcome;
+        [SerializeField] private List<Outcome> m_availableOutcomes;
+        
+        public SpinnerState InnerSpinnerState = SpinnerState.slowSpin;
+        public SpinnerState OuterSpinnerState = SpinnerState.slowSpin;
         
         [Header("References")] 
         [SerializeField] private Transform m_inner;
@@ -17,24 +26,57 @@ namespace Code
 
         public enum SpinnerState
         {
-            idleSpin,
+            slowSpin,
             fastSpin,
             slowing
         }
-        
-        public SpinnerState SpinState = SpinnerState.idleSpin;
+
+        private void Start()
+        {
+            ScenarioManager.OnButtonPressed += ScenarioManager_OnButtonPressed;
+            ChangeOutcome(Random.Range(0,3));
+        }
+
+        private void ScenarioManager_OnButtonPressed(int index)
+        {
+            ChangeOutcome(index);
+        }
+
         void Update()
         {
-            switch (SpinState)
+            HandleSpinnerStates();
+        }
+
+        private void HandleSpinnerStates()
+        {
+            switch (InnerSpinnerState)
             {
-                case SpinnerState.idleSpin:
+                case SpinnerState.slowSpin:
                 {
-                    SlowSpin();
+                    SlowSpin(m_inner, m_innerSpinSpeed);
                     break;
                 }
                 case SpinnerState.fastSpin:
                 {
-                    FastSpin();
+                    FastSpin(m_inner, m_innerSpinSpeed);
+                    break;
+                }
+                case SpinnerState.slowing:
+                {
+                    break;
+                }
+            }
+            
+            switch (OuterSpinnerState)
+            {
+                case SpinnerState.slowSpin:
+                {
+                    SlowSpin(m_outer, m_outerSpinSpeed);
+                    break;
+                }
+                case SpinnerState.fastSpin:
+                {
+                    FastSpin(m_outer, m_outerSpinSpeed);
                     break;
                 }
                 case SpinnerState.slowing:
@@ -44,26 +86,34 @@ namespace Code
             }
         }
 
-        private void SlowSpin()
+        private void SlowSpin(Transform spinner, float speed)
         {
-            m_inner.Rotate(Vector3.left * (m_innerSpinSpeed * Time.deltaTime));
-            m_outer.Rotate(Vector3.left * (m_outerSpinSpeed * Time.deltaTime));
+            spinner.Rotate(Vector3.left * (speed * Time.deltaTime));
         }
 
-        private void FastSpin()
+        private void FastSpin(Transform spinner, float speed)
         {
-            m_inner.Rotate(Vector3.left * (m_innerSpinSpeed * m_fastSpinSpeedFactor * Time.deltaTime));
-            m_outer.Rotate(Vector3.left * (m_outerSpinSpeed * m_fastSpinSpeedFactor * Time.deltaTime));
+            spinner.Rotate(Vector3.left * (speed * m_fastSpinSpeedFactor * Time.deltaTime));
         }
 
         public void ChangeState(SpinnerState newState)
         {
-            SpinState = newState;
+            InnerSpinnerState = newState;
         }
 
-        public void ChangeState(int newState)
+        public void ChangeInnerState(int newState)
         {
-            SpinState = (SpinnerState)newState;
+            InnerSpinnerState = (SpinnerState)newState;
+        }
+        
+        public void ChangeOuterState(int newState)
+        {
+            OuterSpinnerState = (SpinnerState)newState;
+        }
+
+        private void ChangeOutcome(int index)
+        {
+            m_currentOutcome = m_availableOutcomes[index];
         }
     }
 }
