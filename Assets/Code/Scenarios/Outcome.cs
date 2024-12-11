@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Code
+namespace Code.Scenarios
 {
     [CreateAssetMenu(fileName = "New Outcome", menuName = "Lottery Outcome")]
     public class Outcome : ScriptableObject
