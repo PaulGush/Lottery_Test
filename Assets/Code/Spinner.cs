@@ -18,8 +18,8 @@ namespace Code
         [SerializeField] private Outcome m_currentOutcome;
         [SerializeField] private List<Outcome> m_availableOutcomes;
         
-        public SpinnerState InnerSpinnerState = SpinnerState.slowSpin;
-        public SpinnerState OuterSpinnerState = SpinnerState.slowSpin;
+        public SpinnerState InnerSpinnerState = SpinnerState.slow;
+        public SpinnerState OuterSpinnerState = SpinnerState.slow;
         
         [Header("References")] 
         [SerializeField] private Transform m_inner;
@@ -27,8 +27,8 @@ namespace Code
 
         public enum SpinnerState
         {
-            slowSpin,
-            fastSpin,
+            slow,
+            fast,
             stopping,
             stopped
         }
@@ -42,13 +42,20 @@ namespace Code
         {
             ScenarioManager.OnButtonPressed += ScenarioManager_OnButtonPressed;
             ScenarioManager.OnRoll += ScenarioManager_OnRoll;
+            ScenarioManager.OnLand += ScenarioManager_OnLand;
             ChangeOutcome(Random.Range(0,3));
         }
 
         private void ScenarioManager_OnRoll()
         {
-            ChangeInnerState(1);
-            ChangeOuterState(1);
+            InnerSpinnerState = SpinnerState.fast;
+            OuterSpinnerState = SpinnerState.fast;
+        }
+
+        private void ScenarioManager_OnLand()
+        {
+            InnerSpinnerState = SpinnerState.stopping;
+            OuterSpinnerState = SpinnerState.stopping;
         }
 
         private void ScenarioManager_OnButtonPressed(int index)
@@ -65,42 +72,44 @@ namespace Code
         {
             switch (InnerSpinnerState)
             {
-                case SpinnerState.slowSpin:
+                case SpinnerState.slow:
                 {
                     Spin(m_inner, m_innerSpinSpeed);
                     break;
                 }
-                case SpinnerState.fastSpin:
+                case SpinnerState.fast:
                 {
                     Spin(m_inner, m_innerSpinSpeed * m_fastSpinSpeedFactor);
                     break;
                 }
                 case SpinnerState.stopping:
-                    LandOnSegment(1);
+                    LandOnSegment(1, m_inner, m_innerOriginRotation, m_innerRotationOffset,m_innerSpinSpeed, out InnerSpinnerState);
                     break;
                 case SpinnerState.stopped:
                 {
+                    Debug.Log("Inner Spinner Stopped");
                     break;
                 }
             }
             
             switch (OuterSpinnerState)
             {
-                case SpinnerState.slowSpin:
+                case SpinnerState.slow:
                 {
                     Spin(m_outer, m_outerSpinSpeed);
                     break;
                 }
-                case SpinnerState.fastSpin:
+                case SpinnerState.fast:
                 {
                     Spin(m_outer, m_outerSpinSpeed * m_fastSpinSpeedFactor);
                     break;
                 }
                 case SpinnerState.stopping:
-                    LandOnSegment(1);
+                    LandOnSegment(1, m_outer, m_outerOriginRotation, m_outerRotationOffset,m_outerSpinSpeed, out OuterSpinnerState);
                     break;
                 case SpinnerState.stopped:
                 {
+                    Debug.Log("Outer Spinner Stopped");
                     break;
                 }
             }
@@ -109,16 +118,6 @@ namespace Code
         private void Spin(Transform spinner, float speed)
         {
             spinner.Rotate(Vector3.left * (speed * Time.deltaTime));
-        }
-
-        public void ChangeInnerState(int newState)
-        {
-            InnerSpinnerState = (SpinnerState)newState;
-        }
-        
-        public void ChangeOuterState(int newState)
-        {
-            OuterSpinnerState = (SpinnerState)newState;
         }
 
         private void ChangeOutcome(int index)
@@ -139,27 +138,27 @@ namespace Code
             m_outerRotationOffset = 360f / m_outerSegments;
         }
 
-        private void LandOnSegment(int segment)
+        private void LandOnSegment(int segment, Transform spinner, float originRotation, float rotationOffset, float spinSpeed, out SpinnerState spinnerState)
         {
-            Spin(m_inner, m_innerSpinSpeed);
+            Spin(spinner, spinSpeed);
             
-            float targetRotation = m_innerOriginRotation + (m_innerRotationOffset * (segment - 1));
+            float targetRotation = originRotation + (rotationOffset * (segment - 1));
 
             Debug.Log("Target segment center: " + targetRotation);
             
-            Debug.Log("Target segment extremes: " + (targetRotation - m_innerRotationOffset / 2) + ", " + (targetRotation + m_innerRotationOffset / 2));
+            Debug.Log("Target segment extremes: " + (targetRotation - rotationOffset / 2) + ", " + (targetRotation + rotationOffset / 2));
             
-            Debug.Log(m_inner.eulerAngles.x);
+            Debug.Log(spinner.eulerAngles.x);
             
-            if (m_inner.eulerAngles.x >= (targetRotation - m_innerRotationOffset / 2) &&
-                m_inner.eulerAngles.x <= (targetRotation + m_innerRotationOffset / 2))
+            if (spinner.eulerAngles.x >= (targetRotation - rotationOffset / 2) &&
+                spinner.eulerAngles.x <= (targetRotation + rotationOffset / 2))
             {
                 Debug.Log("Target segment reached");
-                ChangeInnerState(3);
+                spinnerState = SpinnerState.stopped;
+                return;
             }
 
-            //m_inner.localRotation = Quaternion.SlerpUnclamped(m_inner.localRotation,
-                //Quaternion.Euler(targetRotation, m_inner.localRotation.y, m_inner.localRotation.z), Time.deltaTime * m_innerSpinSpeed);
+            spinnerState = SpinnerState.stopping;
         }
         
     }

@@ -30,5 +30,10 @@ namespace Code.Scenarios
         {
             OnRoll?.Invoke();
         }
+
+        public void Land()
+        {
+            OnLand?.Invoke();
+        }
     }
 }
