@@ -91,8 +91,6 @@ namespace Code.Scenarios
 
         private void DeclareWinLossOutcome()
         {
-            m_isRolling = false;
-            
             m_winLossText.text = CurrentOutcome.Win ? "WIN £100!" : "NO WIN!";
 
             IncrementOutcome();
@@ -108,6 +106,8 @@ namespace Code.Scenarios
             }
 
             ChangeOutcome(m_currentOutcomeIndex);
+            
+            m_isRolling = false;
         }
     }
 }
