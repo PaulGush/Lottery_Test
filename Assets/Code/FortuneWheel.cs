@@ -64,8 +64,6 @@ namespace Code
             {
                 m_targetAngle = m_originRotation + ((ScenarioManager.CurrentOutcome.InnerSpinner - 1) * m_rotationOffset);
             }
-
-            
         }
 
         private void RequestStartSpin()

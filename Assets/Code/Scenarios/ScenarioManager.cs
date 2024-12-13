@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using Random = UnityEngine.Random;
 
 namespace Code.Scenarios
 {
@@ -11,9 +10,12 @@ namespace Code.Scenarios
     {
         [SerializeField] private Button[] m_buttons;
         [SerializeField] private TextMeshProUGUI m_winLossText;
+        [SerializeField] private TextMeshProUGUI m_spinsRemainingText;
         public static Outcome CurrentOutcome;
+        private int m_currentOutcomeIndex = 0;
         [SerializeField] private List<Outcome> m_availableOutcomes;
-        
+        [SerializeField] private bool m_isRolling = false;
+        [SerializeField] private int m_spinsRemaining = 3;
         
         public delegate void ButtonPressedEvent(int index);
         
@@ -35,15 +37,22 @@ namespace Code.Scenarios
 
         private void Start()
         {
-            ChangeOutcome(Random.Range(0,3));
+            ChangeOutcome(m_currentOutcomeIndex);
+            m_spinsRemainingText.text = "SPINS LEFT: " +m_spinsRemaining.ToString();
         }
 
         void HandleButtonPressed(int index) => OnButtonPressed?.Invoke(index);
 
         public void Roll()
         {
-            OnRoll?.Invoke();
-            m_winLossText.text = "";
+            if (!m_isRolling && m_spinsRemaining > 0)
+            {
+                OnRoll?.Invoke();
+                m_isRolling = true;
+                m_spinsRemaining--;
+                m_spinsRemainingText.text = "SPINS LEFT: " +m_spinsRemaining.ToString();
+                m_winLossText.text = "";
+            }
         }
         
         private void ChangeOutcome(int index)
@@ -71,14 +80,18 @@ namespace Code.Scenarios
 
         private void DeclareWinLossOutcome()
         {
-            if (CurrentOutcome.Win)
+            m_isRolling = false;
+            
+            m_winLossText.text = CurrentOutcome.Win ? "WIN £100!" : "NO WIN!";
+            
+            m_currentOutcomeIndex++;
+
+            if (m_currentOutcomeIndex >= m_availableOutcomes.Count)
             {
-                m_winLossText.text = "WIN!";
+                m_currentOutcomeIndex = 0;
             }
-            else
-            {
-                m_winLossText.text = "NO WIN!";
-            }
+
+            ChangeOutcome(m_currentOutcomeIndex);
         }
     }
 }
