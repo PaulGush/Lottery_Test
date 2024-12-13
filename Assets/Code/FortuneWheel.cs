@@ -1,6 +1,5 @@
 using Code.Scenarios;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Code
 {
@@ -10,7 +9,6 @@ namespace Code
         
         [Header("Values")]
         [SerializeField] private int m_segments = 6;
-
         [SerializeField] private bool m_isOuterWheel;
         
         [Header("Speed")]

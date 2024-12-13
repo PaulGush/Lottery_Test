@@ -10,7 +10,6 @@ namespace Code
         private bool m_isRolling = false;
 
         public Dictionary<Vector3, int> m_rotations;
-        // Start is called once before the first execution of Update after the MonoBehaviour is created
         void Start()
         {
             ScenarioManager.OnRoll += ScenarioManager_OnRoll;
@@ -24,7 +23,6 @@ namespace Code
 
         private void ScenarioManager_OnRoll() => m_isRolling = true;
 
-        // Update is called once per frame
         void Update()
         {
             if (m_isRolling)
