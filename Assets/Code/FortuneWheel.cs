@@ -47,29 +47,26 @@ namespace Code
             DiceAnimator.OnDiceLanded += DiceAnimator_OnDiceLanded;
         }
 
-        private void ScenarioManager_OnRoll()
+        private void ScenarioManager_OnRoll() => RequestStartSpin();
+        
+        private void RequestStartSpin()
         {
-            RequestStartSpin();
+            m_isSpinning = true;
+            m_currentRotationSpeed = m_fastRotationSpeed;
         }
-
+        
         private void DiceAnimator_OnDiceLanded()
         {
             RequestStopSpin();
 
             if (m_isOuterWheel)
             {
-                m_targetAngle = m_originRotation + ((ScenarioManager.CurrentOutcome.OuterSpinner - 1) * m_rotationOffset);
+                m_targetAngle = m_originRotation + ((ScenarioManager.CurrentOutcome.OuterWheel - 1) * m_rotationOffset);
             }
             else
             {
-                m_targetAngle = m_originRotation + ((ScenarioManager.CurrentOutcome.InnerSpinner - 1) * m_rotationOffset);
+                m_targetAngle = m_originRotation + ((ScenarioManager.CurrentOutcome.InnerWheel - 1) * m_rotationOffset);
             }
-        }
-
-        private void RequestStartSpin()
-        {
-            m_isSpinning = true;
-            m_currentRotationSpeed = m_fastRotationSpeed;
         }
 
         private void RequestStopSpin()

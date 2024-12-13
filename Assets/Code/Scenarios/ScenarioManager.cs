@@ -52,7 +52,7 @@ namespace Code.Scenarios
                 
                 UpdateSpinsRemaining();
                 
-                m_winLossText.text = "";
+                m_winLossText.text = ""; //So the text is clear when doing next roll (IE You don't still have NO WIN on screen when it's mid-roll)
             }
         }
 

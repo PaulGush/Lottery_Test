@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Code.Scenarios
 {
@@ -6,8 +7,8 @@ namespace Code.Scenarios
     public class Outcome : ScriptableObject
     {
         public AnimationClip[] DiceAnimationClips;
-        public int InnerSpinner;
-        public int OuterSpinner;
+        [FormerlySerializedAs("InnerSpinner")] public int InnerWheel;
+        [FormerlySerializedAs("OuterSpinner")] public int OuterWheel;
         public bool Win = false;
         
     }
