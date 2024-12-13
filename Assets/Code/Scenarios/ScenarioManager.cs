@@ -38,7 +38,7 @@ namespace Code.Scenarios
         private void Start()
         {
             ChangeOutcome(m_currentOutcomeIndex);
-            m_spinsRemainingText.text = "SPINS LEFT: " +m_spinsRemaining.ToString();
+            UpdateSpinsRemaining(false);
         }
 
         void HandleButtonPressed(int index) => OnButtonPressed?.Invoke(index);
@@ -49,12 +49,23 @@ namespace Code.Scenarios
             {
                 OnRoll?.Invoke();
                 m_isRolling = true;
-                m_spinsRemaining--;
-                m_spinsRemainingText.text = "SPINS LEFT: " +m_spinsRemaining.ToString();
+                
+                UpdateSpinsRemaining();
+                
                 m_winLossText.text = "";
             }
         }
-        
+
+        private void UpdateSpinsRemaining(bool decrement = true)
+        {
+            if (decrement)
+            {
+                m_spinsRemaining--;
+            }
+            
+            m_spinsRemainingText.text = "SPINS LEFT: " + m_spinsRemaining.ToString();
+        }
+
         private void ChangeOutcome(int index)
         {
             CurrentOutcome = m_availableOutcomes[index];
@@ -83,7 +94,12 @@ namespace Code.Scenarios
             m_isRolling = false;
             
             m_winLossText.text = CurrentOutcome.Win ? "WIN £100!" : "NO WIN!";
-            
+
+            IncrementOutcome();
+        }
+
+        private void IncrementOutcome()
+        {
             m_currentOutcomeIndex++;
 
             if (m_currentOutcomeIndex >= m_availableOutcomes.Count)

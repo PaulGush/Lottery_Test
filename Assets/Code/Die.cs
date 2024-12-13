@@ -16,7 +16,6 @@ namespace Code
         }
 
         private void ScenarioManager_OnRoll() => RollDice();
-        
 
         private void RollDice()
         {
