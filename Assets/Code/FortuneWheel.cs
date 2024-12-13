@@ -1,3 +1,4 @@
+using System;
 using Code.Scenarios;
 using UnityEngine;
 
@@ -23,6 +24,8 @@ namespace Code
         [SerializeField] private bool m_isSpinning = false;
         [SerializeField] private bool m_isStopping = false;
 
+        public static event Action OnStopped; 
+
         private float m_originRotation;
         
         private float m_rotationOffset;
@@ -41,7 +44,7 @@ namespace Code
         private void Start()
         {
             ScenarioManager.OnRoll += ScenarioManager_OnRoll;
-            ScenarioManager.OnLand += ScenarioManager_OnLand;
+            DiceAnimator.OnDiceLanded += DiceAnimator_OnDiceLanded;
         }
 
         private void ScenarioManager_OnRoll()
@@ -49,7 +52,7 @@ namespace Code
             RequestStartSpin();
         }
 
-        private void ScenarioManager_OnLand()
+        private void DiceAnimator_OnDiceLanded()
         {
             RequestStopSpin();
 
@@ -119,6 +122,7 @@ namespace Code
             {
                 m_currentAngle = m_targetAngle;
                 m_isStopping = false;
+                OnStopped?.Invoke();
             }
         }
         

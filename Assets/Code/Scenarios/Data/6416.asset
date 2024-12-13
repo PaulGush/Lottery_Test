@@ -12,8 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68eb43274bd967248a7a9338f9fd3237, type: 3}
   m_Name: 6416
   m_EditorClassIdentifier: 
-  InnerSpinner: 6
-  OuterSpinner: 4
-  Die1: 1
-  Die2: 6
+  Die1: 6
+  Die2: 4
+  InnerSpinner: 1
+  OuterSpinner: 6
   Win: 1
+  DiceAnimationClips:
+  - {fileID: 7400000, guid: 638c87308a797a74db8572d71dc1c299, type: 2}

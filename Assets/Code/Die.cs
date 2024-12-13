@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using Code.Scenarios;
 using UnityEngine;
 
@@ -6,34 +5,22 @@ namespace Code
 {
     public class Die : MonoBehaviour
     {
-        [SerializeField] private float m_rollSpeed = 10f;
-        private bool m_isRolling = false;
-
-        public Dictionary<Vector3, int> m_rotations;
+        private Vector3 m_initialPosition;
+        private Quaternion m_initialRotation;
         void Start()
         {
-            ScenarioManager.OnRoll += ScenarioManager_OnRoll;
-            ScenarioManager.OnLand += ScenarioManager_OnLand;
-        }
-
-        private void ScenarioManager_OnLand()
-        {
-            m_isRolling = false;
-        }
-
-        private void ScenarioManager_OnRoll() => m_isRolling = true;
-
-        void Update()
-        {
-            if (m_isRolling)
-            {
-                transform.Rotate(Time.deltaTime * m_rollSpeed, Time.deltaTime * m_rollSpeed, Time.deltaTime * m_rollSpeed);
-            }
-        }
-
-        private void LandOnSide(int side)
-        {
+            m_initialPosition = transform.position;
+            m_initialRotation = transform.rotation;
             
+            ScenarioManager.OnRoll += ScenarioManager_OnRoll;
+        }
+
+        private void ScenarioManager_OnRoll() => RollDice();
+        
+
+        private void RollDice()
+        {
+            transform.SetPositionAndRotation(m_initialPosition, m_initialRotation);
         }
     }
 }
