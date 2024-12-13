@@ -814,18 +814,13 @@ PrefabInstance:
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: b22ac331a58c62a4b9382ce77d0e2c6b, type: 3}
+    - targetCorrespondingSourceObject: {fileID: -1862654687959580310, guid: b22ac331a58c62a4b9382ce77d0e2c6b, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 725850183}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: b22ac331a58c62a4b9382ce77d0e2c6b, type: 3}
+      addedObject: {fileID: 941904653}
+    - targetCorrespondingSourceObject: {fileID: 8279413947898965590, guid: b22ac331a58c62a4b9382ce77d0e2c6b, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 725850185}
+      addedObject: {fileID: 1574937237}
   m_SourcePrefab: {fileID: 100100000, guid: b22ac331a58c62a4b9382ce77d0e2c6b, type: 3}
---- !u!1 &725850180 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: b22ac331a58c62a4b9382ce77d0e2c6b, type: 3}
-  m_PrefabInstance: {fileID: 725850179}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &725850181 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5123255588599335346, guid: b22ac331a58c62a4b9382ce77d0e2c6b, type: 3}
@@ -836,60 +831,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 172851077887009892, guid: b22ac331a58c62a4b9382ce77d0e2c6b, type: 3}
   m_PrefabInstance: {fileID: 725850179}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &725850183
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 725850180}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: efaec9f0ee87a654395bce8a9698f765, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_innerSegments: 3
-  m_outerSegments: 3
-  m_innerSpinSpeed: 5
-  m_outerSpinSpeed: 5
-  m_fastSpinSpeedFactor: 30
-  m_currentOutcome: {fileID: 0}
-  m_availableOutcomes:
-  - {fileID: 11400000, guid: 4863024c69d21a44280d3a31d9131c0c, type: 2}
-  - {fileID: 11400000, guid: a9dc7eab5682b3942bf1d5a85030f314, type: 2}
-  - {fileID: 11400000, guid: a7337c70712111b4794a7f3a6ee5e48f, type: 2}
-  m_rotationTargets:
-  - 270
-  - 330
-  - 30
-  - 90
-  - 30
-  - 330
-  InnerSpinnerState: 0
-  OuterSpinnerState: 0
-  m_inner: {fileID: 725850182}
-  m_outer: {fileID: 725850181}
---- !u!114 &725850185
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 725850180}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b29695a0774328b48bb6a7654fa1ffeb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  fortuneWheel: {fileID: 725850182}
-  fastRotationSpeed: 400
-  slowRotationSpeed: 50
-  decelerationRate: 25
-  targetAngle: 30
-  currentAngle: 0
-  m_isSpinning: 0
-  m_isStopping: 0
-  m_currentRotationSpeed: 0
 --- !u!1 &743529090 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 86685a4a24acd47f7ad276d9e990a0cd, type: 3}
@@ -1009,6 +950,10 @@ MonoBehaviour:
   - {fileID: 472392143}
   - {fileID: 1873315214}
   - {fileID: 865825334}
+  m_availableOutcomes:
+  - {fileID: 11400000, guid: 4863024c69d21a44280d3a31d9131c0c, type: 2}
+  - {fileID: 11400000, guid: a9dc7eab5682b3942bf1d5a85030f314, type: 2}
+  - {fileID: 11400000, guid: a7337c70712111b4794a7f3a6ee5e48f, type: 2}
 --- !u!1001 &763051369
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1345,6 +1290,34 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 865825332}
   m_CullTransparentMesh: 1
+--- !u!1 &941904650 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -1862654687959580310, guid: b22ac331a58c62a4b9382ce77d0e2c6b, type: 3}
+  m_PrefabInstance: {fileID: 725850179}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &941904653
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 941904650}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b29695a0774328b48bb6a7654fa1ffeb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_fortuneWheel: {fileID: 725850182}
+  m_segments: 6
+  m_isOuterWheel: 0
+  m_fastRotationSpeed: 500
+  m_slowRotationSpeed: 50
+  m_decelerationRate: 25
+  m_currentRotationSpeed: 0
+  m_targetAngle: 0
+  m_currentAngle: 0
+  m_isSpinning: 0
+  m_isStopping: 0
 --- !u!1 &958888176 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 86685a4a24acd47f7ad276d9e990a0cd, type: 3}
@@ -2005,6 +1978,34 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1490425299}
   m_CullTransparentMesh: 1
+--- !u!1 &1574937234 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8279413947898965590, guid: b22ac331a58c62a4b9382ce77d0e2c6b, type: 3}
+  m_PrefabInstance: {fileID: 725850179}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1574937237
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1574937234}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b29695a0774328b48bb6a7654fa1ffeb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_fortuneWheel: {fileID: 725850181}
+  m_segments: 6
+  m_isOuterWheel: 1
+  m_fastRotationSpeed: 500
+  m_slowRotationSpeed: 50
+  m_decelerationRate: 25
+  m_currentRotationSpeed: 0
+  m_targetAngle: 0
+  m_currentAngle: 0
+  m_isSpinning: 0
+  m_isStopping: 0
 --- !u!1 &1643528908
 GameObject:
   m_ObjectHideFlags: 0
