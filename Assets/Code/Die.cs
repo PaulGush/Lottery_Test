@@ -21,6 +21,6 @@ namespace Code
 
         private void RollDice() => transform.SetPositionAndRotation(m_initialPosition, m_initialRotation);
 
-        private void OnMouseDown() => m_scenarioManager.Roll();
+        private void OnMouseDown() => m_scenarioManager?.Roll();
     }
 }

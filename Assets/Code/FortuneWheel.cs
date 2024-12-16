@@ -45,6 +45,13 @@ namespace Code
         {
             ScenarioManager.OnRoll += ScenarioManager_OnRoll;
             DiceAnimator.OnDiceLanded += DiceAnimator_OnDiceLanded;
+            InitialSpin();
+        }
+
+        private void InitialSpin()
+        {
+            m_isSpinning = true;
+            m_currentRotationSpeed = m_slowRotationSpeed;
         }
 
         private void ScenarioManager_OnRoll() => RequestStartSpin();
